@@ -11,6 +11,12 @@ O trabalho foi dividido em três etapas principais: tratamento de dados, anális
 
 ---
 
+## Como visualizar
+
+- A planilha contém as análises principais
+- Os arquivos HTML podem ser abertos no navegador
+- A apresentação resume os principais insights
+
 ## 1. Tratamento de Dados
 
 Inicialmente, foi realizada uma análise exploratória da base para identificar inconsistências.
