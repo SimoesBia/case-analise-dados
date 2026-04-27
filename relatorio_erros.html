@@ -1,37 +1,263 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Relatório de Tratamento de Dados</title>
+  <meta charset="UTF-8">
+  <title>Relatório de Erros Identificados</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      color: #222;
+      line-height: 1.5;
+    }
+    h1 {
+      color: #1f4e79;
+    }
+    h2 {
+      margin-top: 36px;
+      color: #2f5597;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 12px;
+      margin-bottom: 24px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #e9f0f7;
+    }
+    .note {
+      background: #f3f6fa;
+      padding: 12px;
+      border-left: 4px solid #2f5597;
+      margin-bottom: 24px;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>Relatório de Tratamento de Dados</h1>
+<h1>Relatório de Erros Identificados</h1>
 
-<h2>Introdução</h2>
-<p>A base de dados apresentada continha inconsistências que poderiam comprometer a análise. Foram realizadas etapas de limpeza e padronização para garantir qualidade e confiabilidade.</p>
+<h2>1. Resumo Executivo</h2>
 
-<h2>Problemas Identificados</h2>
+<p>
+A base original apresentava inconsistências de qualidade que poderiam comprometer as análises comerciais.
+Foram identificados problemas em campos categóricos, valores financeiros, datas, escopo de análise e granularidade dos dados.
+</p>
+
+<table>
+  <tr>
+    <th>Categoria do Problema</th>
+    <th>Quantidade aproximada de ocorrências</th>
+    <th>Impacto</th>
+  </tr>
+  <tr>
+    <td>Inconsistências em campos categóricos</td>
+    <td>Várias ocorrências</td>
+    <td>Duplicação de categorias e distorção em filtros e agrupamentos.</td>
+  </tr>
+  <tr>
+    <td>Divergências entre Amount e Total_Product_Amount</td>
+    <td>Identificadas por Opportunity_ID</td>
+    <td>Valores financeiros incorretos nas análises.</td>
+  </tr>
+  <tr>
+    <td>Registros fora do escopo</td>
+    <td>Tipos diferentes dos 3 definidos no case</td>
+    <td>Inclusão indevida em análises comerciais.</td>
+  </tr>
+  <tr>
+    <td>Datas inconsistentes</td>
+    <td>Algumas ocorrências</td>
+    <td>Geração de ciclos negativos ou inválidos.</td>
+  </tr>
+  <tr>
+    <td>Campos vazios em estágios iniciais</td>
+    <td>Algumas ocorrências</td>
+    <td>Não tratado como erro quando relacionado a Opportunity Identified ou Qualified.</td>
+  </tr>
+</table>
+
+<div class="note">
+  Em linguagem simples: a base precisava ser organizada antes da análise, porque alguns textos estavam escritos de formas diferentes, alguns valores financeiros precisavam ser recalculados e algumas oportunidades ainda não tinham informação completa por estarem em estágios muito iniciais.
+</div>
+
+<h2>2. Inconsistências em Campos Categóricos</h2>
+
+<p>
+Foram encontrados erros de grafia, diferenças de maiúsculas/minúsculas e espaços extras em campos como <b>Stage</b>, <b>Lead_Source</b> e <b>Lead_Office</b>.
+</p>
+
+<table>
+  <tr>
+    <th>Exemplo encontrado</th>
+    <th>Correção aplicada</th>
+  </tr>
+  <tr>
+    <td>Qualifyed</td>
+    <td>Qualified</td>
+  </tr>
+  <tr>
+    <td>Negotiaton</td>
+    <td>Negotiation</td>
+  </tr>
+  <tr>
+    <td>Refferal - Internal</td>
+    <td>Referral - Internal</td>
+  </tr>
+  <tr>
+    <td>inbound - current client (deprecated)</td>
+    <td>Inbound - Current Client (DEPRECATED)</td>
+  </tr>
+  <tr>
+    <td>Sao Paulo / São Paulo / Sao Paulo, BR</td>
+    <td>Sao Paulo, BR</td>
+  </tr>
+</table>
+
+<p>
+Essas correções foram feitas para evitar que o Excel tratasse valores equivalentes como categorias diferentes.
+</p>
+
+<h2>3. Normalização de Lead Source</h2>
+
+<p>
+A coluna <b>Lead_Source</b> continha muitos valores diferentes, incluindo valores obsoletos marcados como <b>(DEPRECATED)</b>.
+Para permitir análise mais clara, foi criada a coluna <b>Lead_Source_Category</b>.
+</p>
+
+<table>
+  <tr>
+    <th>Categoria criada</th>
+    <th>Exemplos de valores mapeados</th>
+  </tr>
+  <tr>
+    <td>Inbound</td>
+    <td>Inbound - Website - Media.Monks (DEPRECATED), Inbound - Marketing (DEPRECATED), Website - Sales Form</td>
+  </tr>
+  <tr>
+    <td>Outbound</td>
+    <td>Prospecting - Personal (DEPRECATED)</td>
+  </tr>
+  <tr>
+    <td>Referral</td>
+    <td>Referral - Internal, Referral - Personal, Referral - S4 Company</td>
+  </tr>
+  <tr>
+    <td>Customer Success</td>
+    <td>Inbound - Current Client (DEPRECATED), Existing Client - Account/Growth Activity, Prospecting - Current Client (DEPRECATED)</td>
+  </tr>
+  <tr>
+    <td>Event</td>
+    <td>Industry Event</td>
+  </tr>
+  <tr>
+    <td>Unknown</td>
+    <td>MH Lead (DEPRECATED), Don't Know/Other (DEPRECATED)</td>
+  </tr>
+</table>
+
+<p>
+Em linguagem simples: em vez de analisar dezenas de nomes diferentes de origem, agrupei esses valores em seis categorias principais para facilitar a leitura.
+</p>
+
+<h2>4. Divergências Financeiras</h2>
+
+<p>
+A base estava em nível de produto, ou seja, uma mesma oportunidade podia aparecer em mais de uma linha.
+Por isso, o campo <b>Amount</b> foi validado contra a soma de <b>Total_Product_Amount</b> por <b>Opportunity_ID</b>.
+</p>
+
+<table>
+  <tr>
+    <th>Problema</th>
+    <th>Correção aplicada</th>
+  </tr>
+  <tr>
+    <td>Divergência entre Amount e soma dos produtos</td>
+    <td>Recalculei o Amount usando a soma de Total_Product_Amount por Opportunity_ID.</td>
+  </tr>
+  <tr>
+    <td>Granularidade por produto</td>
+    <td>Usei Opportunity_ID como chave para evitar contagem duplicada de oportunidades.</td>
+  </tr>
+</table>
+
+<p>
+Em linguagem simples: quando uma oportunidade tinha vários produtos, somei os valores dos produtos para encontrar o valor correto do negócio.
+</p>
+
+<h2>5. Registros Fora do Escopo</h2>
+
+<p>
+O case definiu que apenas três tipos de oportunidade deveriam ser considerados na análise:
+</p>
+
 <ul>
-<li>Inconsistências em campos textuais</li>
-<li>Erros de digitação em estágios</li>
-<li>Dados ausentes em Amount</li>
-<li>Problemas no formato de datas</li>
-<li>Valores negativos nos cálculos</li>
+  <li>Project - Competitive</li>
+  <li>Project - Not Competitive</li>
+  <li>Change Order/Upsell</li>
 </ul>
 
-<h2>Tratamentos Realizados</h2>
-<ul>
-<li>Padronização textual</li>
-<li>Criação de Lead_Source_Category</li>
-<li>Recalculo do Amount</li>
-<li>Ajuste de datas</li>
-<li>Criação de colunas auxiliares</li>
-<li>Tratamento de valores inválidos</li>
-</ul>
+<p>
+Registros com outros valores de <b>Type</b> foram mantidos na base, mas excluídos das análises.
+</p>
 
-<h2>Conclusão</h2>
-<p>Após o tratamento, a base tornou-se consistente e adequada para análise.</p>
+<h2>6. Datas e Métricas de Tempo</h2>
+
+<p>
+Foram identificadas inconsistências nas datas, incluindo casos que poderiam gerar valores negativos ou inválidos para ciclo de venda e idade do pipeline.
+</p>
+
+<table>
+  <tr>
+    <th>Métrica</th>
+    <th>Tratamento</th>
+  </tr>
+  <tr>
+    <td>Sales_Cycle_Days</td>
+    <td>Calculado apenas para oportunidades Closed Won, usando a diferença entre Close_Date e Created_Date.</td>
+  </tr>
+  <tr>
+    <td>Pipeline_Age_Days</td>
+    <td>Calculado apenas para oportunidades abertas, usando a diferença entre a data de referência e Created_Date.</td>
+  </tr>
+  <tr>
+    <td>Valores negativos ou iguais a zero</td>
+    <td>Desconsiderados dos cálculos quando indicavam inconsistência.</td>
+  </tr>
+</table>
+
+<p>
+Em linguagem simples: quando uma data parecia impossível, como fechamento antes da criação, esse registro não foi usado nos cálculos de tempo.
+</p>
+
+<h2>7. Campos Vazios em Estágios Iniciais</h2>
+
+<p>
+Foram encontrados registros sem Amount, Product_Name ou Total_Product_Amount.
+Esses casos foram analisados e estavam associados principalmente a oportunidades nos estágios <b>Opportunity Identified</b> ou <b>Qualified</b>.
+</p>
+
+<p>
+Como oportunidades nesses estágios ainda podem não ter escopo definido, esses vazios não foram tratados como erro. Eles foram apenas excluídos de análises que dependem de valor financeiro.
+</p>
+
+<h2>8. Conclusão</h2>
+
+<p>
+Após a limpeza, a base ficou mais consistente para análises de receita, pipeline, ticket médio, win rate e ciclo de vendas.
+As correções permitiram reduzir distorções causadas por dados duplicados, categorias inconsistentes e divergências financeiras.
+</p>
 
 </body>
 </html>
