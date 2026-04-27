@@ -1,48 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Análise de Dados Comerciais</title>
+  <meta charset="UTF-8">
+  <title>Análise de Dados Comerciais</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      color: #222;
+      line-height: 1.5;
+    }
+    h1 {
+      color: #1f4e79;
+    }
+    h2 {
+      margin-top: 40px;
+      color: #2f5597;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 6px;
+    }
+    img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .obs {
+      background: #f3f6fa;
+      padding: 12px;
+      border-left: 4px solid #2f5597;
+      margin-bottom: 24px;
+    }
+  </style>
 </head>
+
 <body>
 
 <h1>Análise de Dados Comerciais</h1>
 
-<h2>Introdução</h2>
-<p>O objetivo desta análise é avaliar o desempenho comercial e identificar padrões relevantes.</p>
+<p>
+Este relatório apresenta as principais análises realizadas a partir da base corrigida de oportunidades comerciais.
+As análises consideram apenas os tipos de oportunidade dentro do escopo definido no case.
+</p>
 
-<h2>Receita ao Longo do Tempo</h2>
-<p>A receita apresenta variações ao longo do tempo.</p>
+<h2>1. Receita Closed Won MoM</h2>
+<img src="imagens/receita_mom.png" alt="Receita Closed Won mês a mês">
+<div class="obs">
+  A receita Closed Won apresenta concentração em determinados meses de 2026, indicando picos de fechamento ao longo do período analisado.
+</div>
 
-<h2>Distribuição por Lead Source</h2>
-<p>Alguns canais apresentam maior eficiência.</p>
+<h2>2. Participação por Lead Source</h2>
+<img src="imagens/lead_source.png" alt="Participação por Lead Source">
+<div class="obs">
+  Customer Success concentra a maior participação da receita, indicando forte relevância de oportunidades originadas de clientes existentes.
+</div>
 
-<h2>Win Rate por Lead Source</h2>
-<p>O win rate varia entre os canais.</p>
+<h2>3. Top 10 Oportunidades em Aberto</h2>
+<img src="imagens/open_opportunities.png" alt="Top 10 oportunidades abertas">
+<div class="obs">
+  As maiores oportunidades abertas estão concentradas em poucos clientes, indicando oportunidades relevantes em negociação e possível concentração do pipeline.
+</div>
 
-<h2>Distribuição por Stage</h2>
-<p>O pipeline concentra-se em estágios intermediários.</p>
+<h2>4. Win Rate por Lead Source</h2>
+<img src="imagens/win_rate.png" alt="Win rate por Lead Source">
+<div class="obs">
+  O win rate varia entre as categorias de Lead Source, mostrando diferenças na qualidade e conversão das oportunidades por origem.
+</div>
 
-<h2>Ticket Médio por Type</h2>
-<p>Há variação entre tipos de oportunidade.</p>
+<h2>5. Ticket Médio por Type</h2>
+<img src="imagens/ticket_type.png" alt="Ticket médio por Type">
+<div class="obs">
+  O ticket médio varia entre os tipos de oportunidade, evidenciando diferenças entre novos negócios e oportunidades de expansão.
+</div>
 
-<h2>Top 10 Clientes</h2>
-<p>A receita está concentrada em poucos clientes.</p>
+<h2>6. Pipeline em Aberto por Stage</h2>
+<img src="imagens/open_pipeline_stage.png" alt="Pipeline aberto por Stage">
+<div class="obs">
+  O pipeline aberto apresenta maior concentração de valor em estágios intermediários, indicando onde estão as principais oportunidades em negociação.
+</div>
 
-<h2>Pipeline Aberto</h2>
-<p>O pipeline apresenta oportunidades em negociação.</p>
+<h2>7. Mix New Business vs Upsell</h2>
+<img src="imagens/mix_new_upsell.png" alt="Mix New Business vs Upsell">
+<div class="obs">
+  A análise mostra a participação de New Business e Upsell ao longo do tempo, permitindo avaliar o equilíbrio entre aquisição de novos clientes e expansão da base existente.
+</div>
 
-<h2>Mix New Business vs Upsell</h2>
-<p>Há equilíbrio entre aquisição e expansão.</p>
+<h2>8. Ciclo de Venda Médio por Lead Office</h2>
+<img src="imagens/sales_cycle_office.png" alt="Ciclo médio de venda por Lead Office">
+<div class="obs">
+  São Paulo apresenta o maior ciclo médio de vendas, indicando processos mais longos em comparação com São Carlos e Votorantim.
+</div>
 
-<h2>Ciclo de Venda</h2>
-<p>O ciclo varia entre oportunidades.</p>
+<h2>9. Top 10 Clientes Closed Won YTD</h2>
+<img src="imagens/top10_clients.png" alt="Top 10 clientes Closed Won YTD">
+<div class="obs">
+  A receita fechada em 2026 está concentrada em poucos clientes estratégicos, o que pode representar tanto oportunidade quanto risco de concentração.
+</div>
 
-<h2>Idade do Pipeline</h2>
-<p>A idade média do pipeline é de aproximadamente 79 dias.</p>
+<h2>10. Idade do Pipeline Aberto</h2>
+<img src="imagens/pipeline_age.png" alt="Histograma da idade do pipeline aberto">
+<div class="obs">
+  A maior parte das oportunidades abertas está concentrada na faixa de 0 a 30 dias, mas ainda existem oportunidades com mais de 180 dias em aberto, indicando possíveis gargalos.
+</div>
+
+<h2>Análise Complementar: Ticket Médio Closed Won</h2>
+<img src="imagens/average_ticket.png" alt="Ticket médio Closed Won">
+<div class="obs">
+  O ticket médio das oportunidades Closed Won resume o valor médio gerado por negócio fechado.
+</div>
+
+<h2>Análise Complementar: Métricas do Pipeline</h2>
+<img src="imagens/metrics.png" alt="Métricas do pipeline">
+<div class="obs">
+  As métricas consolidadas ajudam a resumir a idade média do pipeline e o ciclo médio de vendas.
+</div>
+
+<h2>Análise Complementar: Distribuição por Stage</h2>
+<img src="imagens/stage_distibution.png" alt="Distribuição por Stage">
+<div class="obs">
+  A distribuição por Stage mostra como as oportunidades estão espalhadas ao longo do funil comercial.
+</div>
 
 <h2>Conclusão</h2>
-<p>Foram identificadas oportunidades de melhoria no funil de vendas.</p>
+<p>
+A análise indica concentração relevante de receita em alguns clientes e canais, além de oportunidades de melhoria no acompanhamento do pipeline, no controle de qualidade dos dados e na evolução das oportunidades entre os estágios do funil.
+</p>
 
 </body>
 </html>
